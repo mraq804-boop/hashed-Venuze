@@ -3,6 +3,7 @@
 import { ArrowUpDown, Map as MapIcon, Search, SlidersHorizontal, X } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { Button } from '@/components/ui/Button'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { VenueCard } from '@/components/venue/VenueCard'
@@ -12,7 +13,7 @@ import { countActiveFilters, DEFAULT_SEARCH_STATE } from '@/features/search/para
 import { useSearchState } from '@/features/search/useSearchState'
 import { useVenues } from '@/features/venues/hooks'
 import { CATEGORIES, SORT_OPTIONS } from '@/features/venues/taxonomy'
-import type { SortKey } from '@/features/venues/types'
+import type { SortKey, VenueFilters } from '@/features/venues/types'
 import { cn } from '@/lib/cn'
 import { CategoryStrip } from './CategoryStrip'
 import { FilterChips } from './FilterChips'
@@ -45,8 +46,24 @@ export function SearchView() {
     if ((debounced.trim() || undefined) !== state.q) update({ q: debounced.trim() || undefined })
   }, [debounced]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { mode: _mode, date: _date, simulateError, ...filters } = state
-  const { data, isPending, isError, isFetching, refetch } = useVenues(filters, { simulateError, enabled: !isVendor })
+  const filters: VenueFilters = {
+    city: state.city,
+    guests: state.guests,
+    category: state.category,
+    q: state.q,
+    types: state.types,
+    capMin: state.capMin,
+    capMax: state.capMax,
+    priceMin: state.priceMin,
+    priceMax: state.priceMax,
+    occasions: state.occasions,
+    verified: state.verified,
+    sort: state.sort,
+  }
+  const { data, isPending, isError, isFetching, refetch } = useVenues(filters, {
+    simulateError: state.simulateError,
+    enabled: !isVendor,
+  })
   const items = data?.items ?? []
   const activeCount = countActiveFilters(state)
   const category = CATEGORIES.find((c) => c.id === state.category) ?? CATEGORIES[0]
@@ -174,7 +191,11 @@ export function SearchView() {
               mapOpen ? 'fixed inset-0 z-[60] block' : 'hidden',
             )}
           >
-            <VenueMap venues={items} onOpen={open} city={state.city} />
+            <ErrorBoundary
+              fallback={<div className="flex size-full items-center justify-center bg-surface-alt p-6 text-center text-sm text-muted">The map couldn&apos;t load. Results are still listed.</div>}
+            >
+              <VenueMap venues={items} onOpen={open} city={state.city} />
+            </ErrorBoundary>
             {mapOpen && (
               <button
                 type="button"

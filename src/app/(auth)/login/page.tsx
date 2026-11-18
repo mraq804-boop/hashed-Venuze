@@ -17,7 +17,7 @@ export default function LoginPage() {
         <div className="relative hidden h-full flex-col justify-between p-12 text-white lg:flex">
           <Logo tone="white" />
           <div className="max-w-[520px]">
-            <h1 className="text-[52px] leading-[60px] font-semibold tracking-[-1.5px]">Make it memorable.</h1>
+            <p className="text-[52px] leading-[60px] font-semibold tracking-[-1.5px]">Make it memorable.</p>
             <p className="mt-4 text-lg leading-8 text-white/90">
               Book the perfect venue and the pros who make it shine — your saved spaces and bookings are waiting.
             </p>
@@ -34,7 +34,7 @@ export default function LoginPage() {
           <div className="lg:hidden">
             <Logo />
           </div>
-          <h2 className="mt-6 text-[28px] leading-9 font-semibold text-ink lg:mt-0">Welcome back</h2>
+          <h1 className="mt-6 text-[28px] leading-9 font-semibold text-ink lg:mt-0">Welcome back</h1>
           <p className="mt-1.5 mb-8 text-sm text-body">Log in to manage your saved venues and bookings.</p>
           <Suspense fallback={null}>
             <LoginForm />

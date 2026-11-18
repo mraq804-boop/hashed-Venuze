@@ -12,6 +12,7 @@ export default function SearchPage() {
         <TopBar variant="solid" showCompactSearch />
       </Suspense>
       <main>
+        <h1 className="sr-only">Search venues</h1>
         <Suspense fallback={<div className="min-h-[calc(100dvh-88px)]" />}>
           <SearchView />
         </Suspense>
