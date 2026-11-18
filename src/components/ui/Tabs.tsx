@@ -32,9 +32,9 @@ const STYLES = {
   },
   dark: {
     list: 'gap-2.5',
-    tab: 'rounded-[6px] px-4 py-1.5 text-[11px] font-medium uppercase tracking-wide',
-    active: 'bg-brand-500 text-white',
-    idle: 'bg-white/15 text-white backdrop-blur-sm hover:bg-white/25',
+    tab: 'flex h-10 items-center rounded-btn px-5 text-sm uppercase md:h-[50px] md:px-[30px] md:text-base',
+    active: 'bg-brand-500 font-bold text-white',
+    idle: 'bg-[rgba(183,183,183,0.5)] text-white hover:bg-[rgba(183,183,183,0.7)]',
   },
 } as const
 
