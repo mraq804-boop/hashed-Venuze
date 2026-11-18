@@ -29,6 +29,7 @@ export const useAuthStore = create<AuthState>()(
       partialize: ({ token, email }) => ({ token, email }),
       onRehydrateStorage: () => (state) => {
         if (state?.token) setAuthCookie(state.token)
+        else clearAuthCookie()
       },
     },
   ),

@@ -70,6 +70,20 @@ describe('SearchView', () => {
     expect(getVenues).toHaveBeenCalledTimes(2)
   })
 
+  it('keeps the keyword box in sync when q changes outside the input', async () => {
+    params = new URLSearchParams('q=loft')
+    vi.mocked(getVenues).mockResolvedValue({ items: [], total: 0 })
+    const { rerender } = renderView()
+    expect(screen.getByRole('searchbox')).toHaveValue('loft')
+    params = new URLSearchParams()
+    rerender(
+      <QueryClientProvider client={new QueryClient()}>
+        <SearchView />
+      </QueryClientProvider>,
+    )
+    await vi.waitFor(() => expect(screen.getByRole('searchbox')).toHaveValue(''))
+  })
+
   it('renders result cards and the total in the header', async () => {
     params = new URLSearchParams('city=London&category=gallery')
     vi.mocked(getVenues).mockResolvedValue({ items: [venue('a'), venue('b')], total: 2 })

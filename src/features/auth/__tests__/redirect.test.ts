@@ -6,7 +6,7 @@ describe('safeFrom', () => {
     expect(safeFrom('/dashboard?tab=bookings')).toBe('/dashboard?tab=bookings')
   })
 
-  it.each(['//evil.com', 'https://evil.com', '/\\evil.com', 'dashboard', ''])('rejects %s', (from) => {
+  it.each(['//evil.com', 'https://evil.com', '/\\evil.com', 'dashboard', '', '/\t/evil.com', '/\n/evil.com', '/\r//evil.com'])('rejects %j', (from) => {
     expect(safeFrom(from)).toBe('/dashboard')
   })
 

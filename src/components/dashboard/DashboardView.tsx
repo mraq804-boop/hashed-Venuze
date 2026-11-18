@@ -44,7 +44,7 @@ export function DashboardView() {
         <div>
           <p className="text-sm text-muted">Dashboard</p>
           <h1 className="mt-1 text-[28px] leading-9 font-semibold text-ink md:text-4xl">
-            {me.data ? `Hi, ${me.data.first_name}` : me.isPending ? <Skeleton className="h-9 w-40" /> : 'Welcome back'}
+            {me.data ? `Hi, ${me.data.first_name}` : me.isPending && me.fetchStatus !== 'idle' ? <Skeleton className="h-9 w-40" /> : 'Welcome back'}
           </h1>
         </div>
         <Button variant="outline" onClick={logout}>

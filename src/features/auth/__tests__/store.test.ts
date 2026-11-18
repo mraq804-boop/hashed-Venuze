@@ -24,6 +24,14 @@ describe('useAuthStore', () => {
     expect(Cookies.get('venuze_token')).toBeUndefined()
   })
 
+  it('drops a stray cookie when the stored session has no token', async () => {
+    Cookies.set('venuze_token', 'orphan')
+    localStorage.removeItem('venuze-auth')
+    await useAuthStore.persist.rehydrate()
+    expect(useAuthStore.getState().token).toBeNull()
+    expect(Cookies.get('venuze_token')).toBeUndefined()
+  })
+
   it('re-mirrors the cookie when rehydrating a stored token', async () => {
     localStorage.setItem('venuze-auth', JSON.stringify({ state: { token: 'stored', email: 'e@x.com' }, version: 0 }))
     await useAuthStore.persist.rehydrate()

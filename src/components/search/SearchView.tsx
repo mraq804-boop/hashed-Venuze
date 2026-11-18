@@ -46,6 +46,10 @@ export function SearchView() {
     if ((debounced.trim() || undefined) !== state.q) update({ q: debounced.trim() || undefined })
   }, [debounced]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if ((debounced.trim() || undefined) !== state.q) setKeyword(state.q ?? '')
+  }, [state.q]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const filters: VenueFilters = {
     city: state.city,
     guests: state.guests,
