@@ -1,0 +1,78 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { AxiosError, AxiosHeaders } from 'axios'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { useAuthStore } from '@/features/auth/store'
+import { reqres } from '@/lib/axios'
+import { LoginForm } from '../LoginForm'
+
+const replace = vi.fn()
+let params = new URLSearchParams()
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ replace, push: vi.fn() }),
+  useSearchParams: () => params,
+}))
+vi.mock('@/lib/axios', () => ({ reqres: { post: vi.fn(), get: vi.fn() } }))
+
+function renderForm() {
+  return render(
+    <QueryClientProvider client={new QueryClient({ defaultOptions: { mutations: { retry: false } } })}>
+      <LoginForm />
+    </QueryClientProvider>,
+  )
+}
+
+async function fillAndSubmit(email: string, password: string) {
+  await userEvent.type(screen.getByLabelText('Email'), email)
+  await userEvent.type(screen.getByLabelText('Password'), password)
+  await userEvent.click(screen.getByRole('button', { name: /^log in$/i }))
+}
+
+describe('LoginForm', () => {
+  beforeEach(() => {
+    replace.mockReset()
+    vi.mocked(reqres.post).mockReset()
+    params = new URLSearchParams()
+    useAuthStore.setState({ token: null, email: null })
+  })
+
+  it('shows field errors and sends nothing on an empty submit', async () => {
+    renderForm()
+    await userEvent.click(screen.getByRole('button', { name: /^log in$/i }))
+    expect(await screen.findByText('Email is required')).toBeInTheDocument()
+    expect(screen.getByText('Password is required')).toBeInTheDocument()
+    expect(reqres.post).not.toHaveBeenCalled()
+  })
+
+  it('shows the reqres error as an alert', async () => {
+    vi.mocked(reqres.post).mockRejectedValue(
+      new AxiosError('Bad Request', 'ERR_BAD_REQUEST', undefined, undefined, {
+        status: 400,
+        statusText: 'Bad Request',
+        data: { error: 'user not found' },
+        headers: {},
+        config: { headers: new AxiosHeaders() },
+      }),
+    )
+    renderForm()
+    await fillAndSubmit('nobody@x.com', 'secret12')
+    expect(await screen.findByRole('alert')).toHaveTextContent('No account found with this email.')
+  })
+
+  it('stores the token and goes to the dashboard', async () => {
+    vi.mocked(reqres.post).mockResolvedValue({ data: { token: 'QpwL5tke4Pnpja7X4' } })
+    renderForm()
+    await fillAndSubmit('eve.holt@reqres.in', 'cityslicka')
+    await vi.waitFor(() => expect(replace).toHaveBeenCalledWith('/dashboard'))
+    expect(useAuthStore.getState().token).toBe('QpwL5tke4Pnpja7X4')
+  })
+
+  it('returns to the from path after login', async () => {
+    params = new URLSearchParams('from=/dashboard?tab=bookings')
+    vi.mocked(reqres.post).mockResolvedValue({ data: { token: 't' } })
+    renderForm()
+    await fillAndSubmit('eve.holt@reqres.in', 'cityslicka')
+    await vi.waitFor(() => expect(replace).toHaveBeenCalledWith('/dashboard?tab=bookings'))
+  })
+})
