@@ -108,3 +108,20 @@ body {
 .leaflet-container {
   font-family: inherit;
 }
+
+.venuze-tiles {
+  filter: saturate(0.65) brightness(1.04) contrast(0.95);
+}
+
+.dark .venuze-tiles {
+  filter: invert(0.92) hue-rotate(180deg) saturate(0.4) brightness(0.9);
+}
+
+.venuze-popup .leaflet-popup-content-wrapper {
+  border-radius: 20px;
+  padding: 2px;
+}
+
+.venuze-popup .leaflet-popup-content {
+  margin: 10px;
+}

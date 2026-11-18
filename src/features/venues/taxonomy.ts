@@ -1,17 +1,17 @@
 import type { CategoryId, City, FeaturedTab, Occasion, VenueType } from './types'
 
-export const CATEGORIES: readonly { id: CategoryId; label: string; icon: string }[] = [
-  { id: 'all', label: 'All Spaces', icon: '/images/categories/all.svg' },
-  { id: 'photo-studio', label: 'Photo Studio', icon: '/images/categories/photo-studio.svg' },
-  { id: 'film-studio', label: 'Film Studio', icon: '/images/categories/film-studio.svg' },
-  { id: 'warehouse', label: 'Warehouse', icon: '/images/categories/warehouse.svg' },
-  { id: 'gallery', label: 'Gallery', icon: '/images/categories/gallery.svg' },
-  { id: 'restaurant', label: 'Restaurant', icon: '/images/categories/restaurant.svg' },
-  { id: 'apartment', label: 'Apartment', icon: '/images/categories/apartment.svg' },
-  { id: 'office-space', label: 'Office Space', icon: '/images/categories/office-space.svg' },
-  { id: 'venue', label: 'Venue', icon: '/images/categories/venue.svg' },
-  { id: 'private-party', label: 'Private Party', icon: '/images/categories/private-party.svg' },
-  { id: 'meeting', label: 'Meeting', icon: '/images/categories/meeting.svg' },
+export const CATEGORIES: readonly { id: CategoryId; label: string; one: string; many: string }[] = [
+  { id: 'all', label: 'All Spaces', one: 'space', many: 'spaces' },
+  { id: 'photo-studio', label: 'Photo Studio', one: 'photo studio', many: 'photo studios' },
+  { id: 'film-studio', label: 'Film Studio', one: 'film studio', many: 'film studios' },
+  { id: 'warehouse', label: 'Warehouse', one: 'warehouse', many: 'warehouses' },
+  { id: 'gallery', label: 'Gallery', one: 'gallery', many: 'galleries' },
+  { id: 'restaurant', label: 'Restaurant', one: 'restaurant', many: 'restaurants' },
+  { id: 'apartment', label: 'Apartment', one: 'apartment', many: 'apartments' },
+  { id: 'office-space', label: 'Office Space', one: 'office space', many: 'office spaces' },
+  { id: 'venue', label: 'Venue', one: 'venue', many: 'venues' },
+  { id: 'private-party', label: 'Private Party', one: 'party space', many: 'party spaces' },
+  { id: 'meeting', label: 'Meeting', one: 'meeting room', many: 'meeting rooms' },
 ]
 
 export const CATEGORY_IDS = CATEGORIES.map((c) => c.id)

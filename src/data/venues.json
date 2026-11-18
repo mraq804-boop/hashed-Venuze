@@ -204,7 +204,7 @@
       "Catering"
     ],
     "pricePerHour": 195,
-    "type": "Apartment",
+    "type": "House",
     "category": "apartment",
     "occasions": [
       "Pop-up",
@@ -310,7 +310,7 @@
       "Free parking"
     ],
     "pricePerHour": 310,
-    "type": "Private Party",
+    "type": "Bar",
     "category": "private-party",
     "occasions": [
       "Fashion Show",
@@ -416,7 +416,7 @@
       "Catering"
     ],
     "pricePerHour": 175,
-    "type": "Restaurant",
+    "type": "Bar",
     "category": "restaurant",
     "occasions": [
       "Corporate Event",
@@ -561,7 +561,7 @@
       "Step-free access"
     ],
     "pricePerHour": 115,
-    "type": "Private Party",
+    "type": "Villa",
     "category": "private-party",
     "occasions": [
       "Conference",

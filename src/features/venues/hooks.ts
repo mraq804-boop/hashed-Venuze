@@ -11,7 +11,7 @@ export function useVenues(f: VenueFilters, opts: { simulateError?: boolean; enab
     queryFn: () => getVenues(f, { simulateError }),
     placeholderData: keepPreviousData,
     enabled: opts.enabled ?? true,
-    retry: simulateError ? false : 1,
+    ...(simulateError ? { retry: false } : {}),
   })
 }
 
