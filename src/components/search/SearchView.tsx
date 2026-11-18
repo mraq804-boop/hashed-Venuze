@@ -170,7 +170,7 @@ export function SearchView() {
           <aside
             aria-label="Map of results"
             className={cn(
-              'lg:sticky lg:top-[88px] lg:block lg:h-[calc(100dvh-88px)] lg:w-[29.3%] lg:shrink-0',
+              'isolate lg:sticky lg:top-[88px] lg:block lg:h-[calc(100dvh-88px)] lg:w-[29.3%] lg:shrink-0',
               mapOpen ? 'fixed inset-0 z-[60] block' : 'hidden',
             )}
           >
