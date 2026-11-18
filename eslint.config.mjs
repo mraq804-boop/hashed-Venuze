@@ -17,6 +17,7 @@ const eslintConfig = [
   {
     ignores: [
       ".superpowers/**",
+      ".next-e2e/**",
       "playwright-report/**",
       "test-results/**",
       "node_modules/**",
