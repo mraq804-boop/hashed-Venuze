@@ -27,7 +27,7 @@ export function Hero() {
       aria-label="Find a venue"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="relative isolate flex min-h-[745px] flex-col items-center overflow-hidden bg-[#372321] px-4 pt-[152px] pb-24 md:pt-[242px] lg:pt-[196px]"
+      className="relative isolate z-10 flex min-h-[745px] flex-col items-center bg-[#372321] px-4 pt-[152px] pb-24 md:pt-[242px] lg:pt-[196px]"
     >
       {SLIDES.map((src, i) => (
         <Image

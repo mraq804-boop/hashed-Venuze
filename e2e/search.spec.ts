@@ -2,7 +2,8 @@ import { expect, test } from '@playwright/test'
 
 test('home search leads to filtered results', async ({ page }) => {
   await page.goto('/')
-  await page.getByLabel('Where').selectOption('London')
+  await page.getByRole('combobox', { name: /where/i }).click()
+  await page.getByRole('option', { name: 'London, UK' }).click()
   await page.getByRole('button', { name: 'Search', exact: true }).click()
   await expect(page).toHaveURL(/\/search\?city=London/)
   await expect(page.locator('article').first()).toBeVisible()

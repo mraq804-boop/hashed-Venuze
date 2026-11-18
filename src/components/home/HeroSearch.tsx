@@ -3,6 +3,7 @@
 import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useRef, useState, type FormEvent, type ReactNode } from 'react'
+import { Dropdown, type DropdownOption } from '@/components/ui/Dropdown'
 import { GUEST_OPTIONS, dateLabel } from '@/features/search/options'
 import { toQueryString, type SearchMode } from '@/features/search/params'
 import { CITIES } from '@/features/venues/taxonomy'
@@ -10,21 +11,19 @@ import type { City } from '@/features/venues/types'
 import { cn } from '@/lib/cn'
 import { todayISO } from '@/lib/format'
 
-function Field({ label, htmlFor, children, className }: { label: string; htmlFor: string; children: ReactNode; className?: string }) {
+function Field({ label, labelId, htmlFor, children, className }: { label: string; labelId: string; htmlFor: string; children: ReactNode; className?: string }) {
   return (
     <div className={cn('relative flex flex-col gap-[5px] px-[5px]', className)}>
-      <label htmlFor={htmlFor} className="text-sm text-[#808080]">
+      <label id={labelId} htmlFor={htmlFor} className="text-sm text-[#808080]">
         {label}
       </label>
-      <div className="relative flex h-6 items-center justify-between">
-        {children}
-        <img src="/images/icons/arrow-down.svg" alt="" width={24} height={24} className="pointer-events-none shrink-0" />
-      </div>
+      {children}
     </div>
   )
 }
 
-const SELECT = 'absolute inset-0 w-full cursor-pointer appearance-none bg-transparent pr-8 text-base font-medium text-black outline-none'
+const CITY_OPTIONS: DropdownOption<string>[] = [{ value: '', label: 'Anywhere' }, ...CITIES.map((c) => ({ value: c.id, label: c.label }))]
+const GUEST_DROPDOWN: DropdownOption<string>[] = [{ value: '', label: 'Any' }, ...GUEST_OPTIONS.map((g) => ({ value: String(g.min), label: g.label }))]
 
 export function HeroSearch() {
   const router = useRouter()
@@ -68,47 +67,35 @@ export function HeroSearch() {
       </fieldset>
 
       <div className="flex flex-col gap-4 rounded-btn bg-white px-[18px] pt-4 pb-5 max-md:rounded-t-none md:h-[85px] md:flex-row md:items-center md:gap-4 md:px-[15px] md:pt-0 md:pb-0 lg:h-[100px] lg:gap-8">
-        <Field label="Where" htmlFor="hero-where" className="md:min-w-0 md:flex-1">
-          <span className="truncate text-base font-medium text-black">{CITIES.find((c) => c.id === city)?.label ?? 'Anywhere'}</span>
-          <select id="hero-where" value={city} onChange={(e) => setCity(e.target.value as City | '')} className={cn(SELECT, 'opacity-0')}>
-            <option value="">Anywhere</option>
-            {CITIES.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.label}
-              </option>
-            ))}
-          </select>
+        <Field label="Where" labelId="hero-where-label" htmlFor="hero-where" className="md:min-w-0 md:flex-1">
+          <Dropdown id="hero-where" labelId="hero-where-label" value={city} options={CITY_OPTIONS} onChange={(v) => setCity(v as City | '')} />
         </Field>
         <span className="h-px bg-[#e4e4e4] md:h-10 md:w-px md:shrink-0 lg:hidden" />
-        <Field label="When" htmlFor="hero-when" className="md:min-w-0 md:flex-1">
-          <span className="text-base font-medium text-black">{dateLabel(date || undefined)}</span>
-          <input
-            ref={dateRef}
-            id="hero-when"
-            type="date"
-            min={todayISO()}
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            onClick={() => dateRef.current?.showPicker?.()}
-            className="absolute inset-0 cursor-pointer opacity-0"
-          />
+        <Field label="When" labelId="hero-when-label" htmlFor="hero-when" className="md:min-w-0 md:flex-1">
+          <div className="relative flex h-6 items-center justify-between gap-2">
+            <span className="truncate text-base font-medium text-black">{dateLabel(date || undefined)}</span>
+            <img src="/images/icons/arrow-down.svg" alt="" width={24} height={24} className="pointer-events-none shrink-0" />
+            <input
+              ref={dateRef}
+              id="hero-when"
+              type="date"
+              min={todayISO()}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              onClick={() => dateRef.current?.showPicker?.()}
+              className="absolute inset-0 cursor-pointer opacity-0"
+            />
+          </div>
         </Field>
         <span className="h-px bg-[#e4e4e4] md:h-10 md:w-px md:shrink-0 lg:hidden" />
-        <Field label="Guests" htmlFor="hero-guests" className="md:min-w-0 md:flex-1">
-          <span className="text-base font-medium text-black">{GUEST_OPTIONS.find((g) => g.min === guests)?.label ?? 'Any'}</span>
-          <select
+        <Field label="Guests" labelId="hero-guests-label" htmlFor="hero-guests" className="md:min-w-0 md:flex-1">
+          <Dropdown
             id="hero-guests"
-            value={guests}
-            onChange={(e) => setGuests(e.target.value ? Number(e.target.value) : '')}
-            className={cn(SELECT, 'opacity-0')}
-          >
-            <option value="">Any</option>
-            {GUEST_OPTIONS.map((g) => (
-              <option key={g.min} value={g.min}>
-                {g.label}
-              </option>
-            ))}
-          </select>
+            labelId="hero-guests-label"
+            value={guests === '' ? '' : String(guests)}
+            options={GUEST_DROPDOWN}
+            onChange={(v) => setGuests(v ? Number(v) : '')}
+          />
         </Field>
         <button
           type="submit"
