@@ -67,8 +67,8 @@ export function HeroSearch() {
         })}
       </fieldset>
 
-      <div className="flex flex-col gap-4 rounded-btn bg-white px-[18px] pt-4 pb-5 max-md:rounded-t-none md:h-[85px] md:flex-row md:items-center md:gap-0 md:px-[15px] md:pt-0 md:pb-0 lg:h-[100px]">
-        <Field label="Where" htmlFor="hero-where" className="md:w-[140px] lg:w-[244px] lg:pl-[10px]">
+      <div className="flex flex-col gap-4 rounded-btn bg-white px-[18px] pt-4 pb-5 max-md:rounded-t-none md:h-[85px] md:flex-row md:items-center md:gap-4 md:px-[15px] md:pt-0 md:pb-0 lg:h-[100px] lg:gap-8">
+        <Field label="Where" htmlFor="hero-where" className="md:min-w-0 md:flex-1">
           <span className="truncate text-base font-medium text-black">{CITIES.find((c) => c.id === city)?.label ?? 'Anywhere'}</span>
           <select id="hero-where" value={city} onChange={(e) => setCity(e.target.value as City | '')} className={cn(SELECT, 'opacity-0')}>
             <option value="">Anywhere</option>
@@ -79,8 +79,8 @@ export function HeroSearch() {
             ))}
           </select>
         </Field>
-        <span className="h-px bg-[#e4e4e4] md:mx-auto md:h-10 md:w-px lg:hidden" />
-        <Field label="When" htmlFor="hero-when" className="md:ml-6 md:w-[140px] lg:ml-16 lg:w-[258px]">
+        <span className="h-px bg-[#e4e4e4] md:h-10 md:w-px md:shrink-0 lg:hidden" />
+        <Field label="When" htmlFor="hero-when" className="md:min-w-0 md:flex-1">
           <span className="text-base font-medium text-black">{dateLabel(date || undefined)}</span>
           <input
             ref={dateRef}
@@ -93,8 +93,8 @@ export function HeroSearch() {
             className="absolute inset-0 cursor-pointer opacity-0"
           />
         </Field>
-        <span className="h-px bg-[#e4e4e4] md:mx-auto md:h-10 md:w-px lg:hidden" />
-        <Field label="Guests" htmlFor="hero-guests" className="md:ml-6 md:w-[140px] lg:ml-1.5 lg:w-[258px]">
+        <span className="h-px bg-[#e4e4e4] md:h-10 md:w-px md:shrink-0 lg:hidden" />
+        <Field label="Guests" htmlFor="hero-guests" className="md:min-w-0 md:flex-1">
           <span className="text-base font-medium text-black">{GUEST_OPTIONS.find((g) => g.min === guests)?.label ?? 'Any'}</span>
           <select
             id="hero-guests"
@@ -112,7 +112,7 @@ export function HeroSearch() {
         </Field>
         <button
           type="submit"
-          className="mt-1 flex h-[50px] w-full cursor-pointer items-center justify-center gap-2.5 rounded-btn bg-brand-500 text-xl font-semibold tracking-[-0.48px] text-white transition-colors hover:bg-brand-600 md:mt-0 md:ml-auto md:h-[61px] md:w-[147px] lg:text-2xl"
+          className="mt-1 flex h-[50px] w-full cursor-pointer items-center justify-center gap-2.5 rounded-btn bg-brand-500 text-xl font-semibold tracking-[-0.48px] text-white transition-colors hover:bg-brand-600 md:mt-0 md:h-[61px] md:w-[147px] md:shrink-0 lg:text-2xl"
         >
           <Search className="size-6" strokeWidth={2.2} />
           Search
