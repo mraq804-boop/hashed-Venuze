@@ -4,13 +4,16 @@ import { Search } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
+import { Dropdown, type DropdownOption } from '@/components/ui/Dropdown'
 import { GUEST_OPTIONS, cityLabel, dateLabel, guestsLabel } from '@/features/search/options'
 import { parseSearchState, toQueryString } from '@/features/search/params'
 import { CITIES } from '@/features/venues/taxonomy'
 import type { City } from '@/features/venues/types'
 import { todayISO } from '@/lib/format'
 
-const SELECT = 'h-11 w-full rounded-btn border border-line bg-surface px-3 text-sm text-ink outline-none focus:border-brand-500'
+const SELECT = 'mt-1 h-11 w-full rounded-btn border border-line bg-surface px-3 text-sm text-ink outline-none focus:border-brand-500'
+const CITY_OPTIONS: DropdownOption<string>[] = [{ value: '', label: 'Anywhere' }, ...CITIES.map((c) => ({ value: c.id, label: c.label }))]
+const GUEST_DROPDOWN: DropdownOption<string>[] = [{ value: '', label: 'Any' }, ...GUEST_OPTIONS.map((g) => ({ value: String(g.min), label: g.label }))]
 
 export function CompactSearch() {
   const router = useRouter()
@@ -71,32 +74,36 @@ export function CompactSearch() {
           onSubmit={submit}
           className="absolute top-full left-1/2 z-50 mt-3 w-[min(92vw,430px)] -translate-x-1/2 animate-pop-in space-y-3 rounded-card border border-line bg-surface p-4 shadow-2xl max-sm:fixed max-sm:top-20"
         >
-          <label className="block text-xs text-muted">
-            Where
-            <select className={SELECT} value={city} onChange={(e) => setCity(e.target.value as City | '')}>
-              <option value="">Anywhere</option>
-              {CITIES.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.label}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div>
+            <label id="compact-where-label" htmlFor="compact-where" className="block text-xs text-muted">
+              Where
+            </label>
+            <Dropdown
+              id="compact-where"
+              labelId="compact-where-label"
+              variant="boxed"
+              value={city}
+              options={CITY_OPTIONS}
+              onChange={(v) => setCity(v as City | '')}
+            />
+          </div>
           <label className="block text-xs text-muted">
             When
             <input type="date" min={todayISO()} className={SELECT} value={date} onChange={(e) => setDate(e.target.value)} />
           </label>
-          <label className="block text-xs text-muted">
-            Guests
-            <select className={SELECT} value={guests} onChange={(e) => setGuests(e.target.value ? Number(e.target.value) : '')}>
-              <option value="">Any</option>
-              {GUEST_OPTIONS.map((g) => (
-                <option key={g.min} value={g.min}>
-                  {g.label}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div>
+            <label id="compact-guests-label" htmlFor="compact-guests" className="block text-xs text-muted">
+              Guests
+            </label>
+            <Dropdown
+              id="compact-guests"
+              labelId="compact-guests-label"
+              variant="boxed"
+              value={guests === '' ? '' : String(guests)}
+              options={GUEST_DROPDOWN}
+              onChange={(v) => setGuests(v ? Number(v) : '')}
+            />
+          </div>
           <Button type="submit" className="w-full">
             <Search className="size-4" /> Search
           </Button>

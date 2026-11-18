@@ -16,9 +16,20 @@ interface DropdownProps<T extends string | number> {
   options: DropdownOption<T>[]
   onChange: (value: T) => void
   className?: string
+  variant?: 'inline' | 'boxed'
 }
 
-export function Dropdown<T extends string | number>({ id, labelId, value, options, onChange, className }: DropdownProps<T>) {
+const TRIGGER = {
+  inline: 'h-6 text-base',
+  boxed: 'mt-1 h-11 rounded-btn border border-line bg-surface px-3 text-sm transition-colors hover:border-[#cfcfcf] aria-expanded:border-brand-500 aria-expanded:ring-2 aria-expanded:ring-brand-500/20',
+}
+
+const LIST = {
+  inline: 'top-[calc(100%+14px)] left-[-10px] min-w-[calc(100%+20px)]',
+  boxed: 'top-[calc(100%+6px)] left-0 min-w-full',
+}
+
+export function Dropdown<T extends string | number>({ id, labelId, value, options, onChange, className, variant = 'inline' }: DropdownProps<T>) {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(0)
   const rootRef = useRef<HTMLDivElement>(null)
@@ -96,9 +107,9 @@ export function Dropdown<T extends string | number>({ id, labelId, value, option
         aria-activedescendant={open ? `${listId}-${active}` : undefined}
         onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={onKeyDown}
-        className="flex h-6 w-full cursor-pointer items-center justify-between gap-2 text-left outline-none"
+        className={cn('flex w-full cursor-pointer items-center justify-between gap-2 text-left outline-none', TRIGGER[variant])}
       >
-        <span id={valueId} className="truncate text-base font-medium text-black">
+        <span id={valueId} className={cn('truncate font-medium', variant === 'inline' ? 'text-black' : 'text-ink')}>
           {options[selectedIndex]?.label}
         </span>
         <img
@@ -116,7 +127,10 @@ export function Dropdown<T extends string | number>({ id, labelId, value, option
           role="listbox"
           aria-labelledby={labelId}
           tabIndex={-1}
-          className="absolute top-[calc(100%+14px)] left-[-10px] z-40 max-h-72 min-w-[calc(100%+20px)] animate-pop-in overflow-y-auto rounded-btn border border-[#ececec] bg-white p-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.16)]"
+          className={cn(
+            'absolute z-40 max-h-72 animate-pop-in overflow-y-auto rounded-btn border border-[#ececec] bg-white p-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.16)] dark:border-line dark:bg-surface',
+            LIST[variant],
+          )}
         >
           {options.map((o, i) => {
             const selected = i === selectedIndex
@@ -131,8 +145,8 @@ export function Dropdown<T extends string | number>({ id, labelId, value, option
                 onClick={() => choose(i)}
                 className={cn(
                   'flex cursor-pointer items-center justify-between gap-3 rounded-[8px] px-4 py-2.5 text-[15px] whitespace-nowrap transition-colors',
-                  i === active ? 'bg-brand-50' : 'bg-white',
-                  selected ? 'font-semibold text-brand-500' : 'text-black',
+                  i === active ? 'bg-brand-50 dark:bg-brand-500/15' : 'bg-transparent',
+                  selected ? 'font-semibold text-brand-500' : 'text-black dark:text-ink',
                 )}
               >
                 {o.label}
