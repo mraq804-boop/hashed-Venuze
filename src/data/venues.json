@@ -1,15 +1,15 @@
 [
   {
     "id": "v1",
-    "title": "Daylight Photo Studio",
+    "title": "High-Spec Room in Trendy Home",
     "city": "London",
     "area": "Clapham/ Stockwell",
     "lat": 51.48413,
     "lng": -0.15064,
     "images": [
-      "/images/venues/v2.jpg",
-      "/images/venues/v3.jpg",
-      "/images/venues/v4.jpg"
+      "/images/venues/v1.jpg",
+      "/images/venues/v2.png",
+      "/images/venues/v3.png"
     ],
     "verified": true,
     "capacity": 300,
@@ -44,9 +44,9 @@
     "lat": 51.50644,
     "lng": -0.15674,
     "images": [
-      "/images/venues/v3.jpg",
-      "/images/venues/v4.jpg",
-      "/images/venues/v5.jpg"
+      "/images/venues/v2.png",
+      "/images/venues/v3.png",
+      "/images/venues/v4.png"
     ],
     "verified": true,
     "capacity": 300,
@@ -83,9 +83,9 @@
     "lat": 51.48642,
     "lng": -0.10304,
     "images": [
-      "/images/venues/v4.jpg",
-      "/images/venues/v5.jpg",
-      "/images/venues/v6.jpg"
+      "/images/venues/v3.png",
+      "/images/venues/v4.png",
+      "/images/venues/v5.png"
     ],
     "verified": true,
     "capacity": 120,
@@ -118,9 +118,9 @@
     "lat": 51.49063,
     "lng": -0.13207,
     "images": [
-      "/images/venues/v5.jpg",
-      "/images/venues/v6.jpg",
-      "/images/venues/v7.jpg"
+      "/images/venues/v4.png",
+      "/images/venues/v5.png",
+      "/images/venues/v6.png"
     ],
     "verified": true,
     "capacity": 50,
@@ -152,9 +152,9 @@
     "lat": 51.50356,
     "lng": -0.14883,
     "images": [
-      "/images/venues/v6.jpg",
-      "/images/venues/v7.jpg",
-      "/images/venues/v8.jpg"
+      "/images/venues/v5.png",
+      "/images/venues/v6.png",
+      "/images/venues/v7.jpg"
     ],
     "verified": true,
     "capacity": 150,
@@ -190,9 +190,9 @@
     "lat": 51.50081,
     "lng": -0.11087,
     "images": [
+      "/images/venues/v6.png",
       "/images/venues/v7.jpg",
-      "/images/venues/v8.jpg",
-      "/images/venues/v1.jpg"
+      "/images/venues/v8.png"
     ],
     "verified": false,
     "capacity": 80,
@@ -225,9 +225,9 @@
     "lat": 51.48471,
     "lng": -0.10121,
     "images": [
-      "/images/venues/v8.jpg",
-      "/images/venues/v1.jpg",
-      "/images/venues/v2.jpg"
+      "/images/venues/v7.jpg",
+      "/images/venues/v8.png",
+      "/images/venues/v1.jpg"
     ],
     "verified": false,
     "capacity": 200,
@@ -262,9 +262,9 @@
     "lat": 51.52704,
     "lng": -0.09671,
     "images": [
+      "/images/venues/v8.png",
       "/images/venues/v1.jpg",
-      "/images/venues/v2.jpg",
-      "/images/venues/v3.jpg"
+      "/images/venues/v2.png"
     ],
     "verified": true,
     "capacity": 200,
@@ -297,9 +297,9 @@
     "lat": 51.51464,
     "lng": -0.16483,
     "images": [
-      "/images/venues/v2.jpg",
-      "/images/venues/v3.jpg",
-      "/images/venues/v4.jpg"
+      "/images/venues/v1.jpg",
+      "/images/venues/v2.png",
+      "/images/venues/v3.png"
     ],
     "verified": true,
     "capacity": 20,
@@ -332,9 +332,9 @@
     "lat": 51.49876,
     "lng": -0.16566,
     "images": [
-      "/images/venues/v3.jpg",
-      "/images/venues/v4.jpg",
-      "/images/venues/v5.jpg"
+      "/images/venues/v2.png",
+      "/images/venues/v3.png",
+      "/images/venues/v4.png"
     ],
     "verified": false,
     "capacity": 80,
@@ -367,9 +367,9 @@
     "lat": 40.70782,
     "lng": -73.95069,
     "images": [
-      "/images/venues/v4.jpg",
-      "/images/venues/v5.jpg",
-      "/images/venues/v6.jpg"
+      "/images/venues/v3.png",
+      "/images/venues/v4.png",
+      "/images/venues/v5.png"
     ],
     "verified": true,
     "capacity": 150,
@@ -403,9 +403,9 @@
     "lat": 40.73871,
     "lng": -73.95694,
     "images": [
-      "/images/venues/v5.jpg",
-      "/images/venues/v6.jpg",
-      "/images/venues/v7.jpg"
+      "/images/venues/v4.png",
+      "/images/venues/v5.png",
+      "/images/venues/v6.png"
     ],
     "verified": true,
     "capacity": 1500,
@@ -439,9 +439,9 @@
     "lat": 40.72861,
     "lng": -73.94246,
     "images": [
-      "/images/venues/v6.jpg",
-      "/images/venues/v7.jpg",
-      "/images/venues/v8.jpg"
+      "/images/venues/v5.png",
+      "/images/venues/v6.png",
+      "/images/venues/v7.jpg"
     ],
     "verified": true,
     "capacity": 150,
@@ -473,9 +473,9 @@
     "lat": 40.71163,
     "lng": -73.97242,
     "images": [
+      "/images/venues/v6.png",
       "/images/venues/v7.jpg",
-      "/images/venues/v8.jpg",
-      "/images/venues/v1.jpg"
+      "/images/venues/v8.png"
     ],
     "verified": true,
     "capacity": 150,
@@ -510,9 +510,9 @@
     "lat": 40.71564,
     "lng": -73.99542,
     "images": [
-      "/images/venues/v8.jpg",
-      "/images/venues/v1.jpg",
-      "/images/venues/v2.jpg"
+      "/images/venues/v7.jpg",
+      "/images/venues/v8.png",
+      "/images/venues/v1.jpg"
     ],
     "verified": true,
     "capacity": 200,
@@ -547,9 +547,9 @@
     "lat": 40.75166,
     "lng": -74.02899,
     "images": [
+      "/images/venues/v8.png",
       "/images/venues/v1.jpg",
-      "/images/venues/v2.jpg",
-      "/images/venues/v3.jpg"
+      "/images/venues/v2.png"
     ],
     "verified": true,
     "capacity": 600,
@@ -583,9 +583,9 @@
     "lat": 40.70577,
     "lng": -74.01265,
     "images": [
-      "/images/venues/v2.jpg",
-      "/images/venues/v3.jpg",
-      "/images/venues/v4.jpg"
+      "/images/venues/v1.jpg",
+      "/images/venues/v2.png",
+      "/images/venues/v3.png"
     ],
     "verified": true,
     "capacity": 150,
@@ -621,9 +621,9 @@
     "lat": 40.7583,
     "lng": -73.97677,
     "images": [
-      "/images/venues/v3.jpg",
-      "/images/venues/v4.jpg",
-      "/images/venues/v5.jpg"
+      "/images/venues/v2.png",
+      "/images/venues/v3.png",
+      "/images/venues/v4.png"
     ],
     "verified": true,
     "capacity": 450,
@@ -658,9 +658,9 @@
     "lat": 40.75595,
     "lng": -73.96375,
     "images": [
-      "/images/venues/v4.jpg",
-      "/images/venues/v5.jpg",
-      "/images/venues/v6.jpg"
+      "/images/venues/v3.png",
+      "/images/venues/v4.png",
+      "/images/venues/v5.png"
     ],
     "verified": false,
     "capacity": 150,
@@ -693,9 +693,9 @@
     "lat": 40.74947,
     "lng": -73.97632,
     "images": [
-      "/images/venues/v5.jpg",
-      "/images/venues/v6.jpg",
-      "/images/venues/v7.jpg"
+      "/images/venues/v4.png",
+      "/images/venues/v5.png",
+      "/images/venues/v6.png"
     ],
     "verified": true,
     "capacity": 1500,
@@ -727,9 +727,9 @@
     "lat": 25.20428,
     "lng": 55.23418,
     "images": [
-      "/images/venues/v6.jpg",
-      "/images/venues/v7.jpg",
-      "/images/venues/v8.jpg"
+      "/images/venues/v5.png",
+      "/images/venues/v6.png",
+      "/images/venues/v7.jpg"
     ],
     "verified": true,
     "capacity": 450,
@@ -762,9 +762,9 @@
     "lat": 25.17498,
     "lng": 55.30154,
     "images": [
+      "/images/venues/v6.png",
       "/images/venues/v7.jpg",
-      "/images/venues/v8.jpg",
-      "/images/venues/v1.jpg"
+      "/images/venues/v8.png"
     ],
     "verified": false,
     "capacity": 50,
@@ -800,9 +800,9 @@
     "lat": 25.21723,
     "lng": 55.22701,
     "images": [
-      "/images/venues/v8.jpg",
-      "/images/venues/v1.jpg",
-      "/images/venues/v2.jpg"
+      "/images/venues/v7.jpg",
+      "/images/venues/v8.png",
+      "/images/venues/v1.jpg"
     ],
     "verified": true,
     "capacity": 450,
@@ -835,9 +835,9 @@
     "lat": 25.18363,
     "lng": 55.25542,
     "images": [
+      "/images/venues/v8.png",
       "/images/venues/v1.jpg",
-      "/images/venues/v2.jpg",
-      "/images/venues/v3.jpg"
+      "/images/venues/v2.png"
     ],
     "verified": true,
     "capacity": 50,
@@ -871,9 +871,9 @@
     "lat": 25.22168,
     "lng": 55.24879,
     "images": [
-      "/images/venues/v2.jpg",
-      "/images/venues/v3.jpg",
-      "/images/venues/v4.jpg"
+      "/images/venues/v1.jpg",
+      "/images/venues/v2.png",
+      "/images/venues/v3.png"
     ],
     "verified": true,
     "capacity": 80,
@@ -906,9 +906,9 @@
     "lat": 25.20201,
     "lng": 55.29394,
     "images": [
-      "/images/venues/v3.jpg",
-      "/images/venues/v4.jpg",
-      "/images/venues/v5.jpg"
+      "/images/venues/v2.png",
+      "/images/venues/v3.png",
+      "/images/venues/v4.png"
     ],
     "verified": true,
     "capacity": 50,
@@ -941,9 +941,9 @@
     "lat": 25.20053,
     "lng": 55.28888,
     "images": [
-      "/images/venues/v4.jpg",
-      "/images/venues/v5.jpg",
-      "/images/venues/v6.jpg"
+      "/images/venues/v3.png",
+      "/images/venues/v4.png",
+      "/images/venues/v5.png"
     ],
     "verified": false,
     "capacity": 600,
@@ -975,9 +975,9 @@
     "lat": 25.19781,
     "lng": 55.29697,
     "images": [
-      "/images/venues/v5.jpg",
-      "/images/venues/v6.jpg",
-      "/images/venues/v7.jpg"
+      "/images/venues/v4.png",
+      "/images/venues/v5.png",
+      "/images/venues/v6.png"
     ],
     "verified": true,
     "capacity": 150,
@@ -1012,9 +1012,9 @@
     "lat": 25.18968,
     "lng": 55.24744,
     "images": [
-      "/images/venues/v6.jpg",
-      "/images/venues/v7.jpg",
-      "/images/venues/v8.jpg"
+      "/images/venues/v5.png",
+      "/images/venues/v6.png",
+      "/images/venues/v7.jpg"
     ],
     "verified": false,
     "capacity": 300,
@@ -1046,9 +1046,9 @@
     "lat": 25.17526,
     "lng": 55.22744,
     "images": [
+      "/images/venues/v6.png",
       "/images/venues/v7.jpg",
-      "/images/venues/v8.jpg",
-      "/images/venues/v1.jpg"
+      "/images/venues/v8.png"
     ],
     "verified": true,
     "capacity": 450,
