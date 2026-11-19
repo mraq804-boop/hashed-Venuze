@@ -33,9 +33,9 @@ First E2E run: `npx playwright install chromium`.
 
 | Email | Password |
 |---|---|
-| `eve.holt@reqres.in` | `cityslicka` (any password of 6+ characters works) |
+| `eve.holt@reqres.in` | `cityslicka` |
 
-Any other email returns reqres' `400 user not found`, which the form shows as "No account found with this email."
+These are the credentials from the brief. Any other email returns reqres' `400 user not found`, which the form shows as "No account found with this email." reqres.in is a mock API and does not verify passwords, so it returns a token for a known email regardless of the password; the app only enforces the client-side rules (required, at least 6 characters). Checking the password in the browser would mean shipping it in the bundle, so that is deliberately left to the API.
 
 ## What's in the app
 

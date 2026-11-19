@@ -65,7 +65,7 @@ export function LoginForm() {
       <p className="flex items-start gap-2 rounded-btn bg-brand-50 px-4 py-3 text-xs leading-5 text-brand-800 dark:bg-brand-500/10 dark:text-brand-200">
         <Info className="mt-0.5 size-4 shrink-0" />
         <span>
-          Demo account: <strong>eve.holt@reqres.in</strong> · any password (6+ characters)
+          Demo account: <strong>eve.holt@reqres.in</strong> · password <strong>cityslicka</strong>
         </span>
       </p>
     </form>
