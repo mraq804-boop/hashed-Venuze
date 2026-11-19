@@ -17,6 +17,18 @@ test('filters are written to the URL', async ({ page }) => {
   await expect(page).toHaveURL(/verified=1/)
 })
 
+test('mobile map opens full screen and closes', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 })
+  await page.goto('/search?city=London')
+  const map = page.getByRole('complementary', { name: 'Map of results' })
+  await expect(map).toBeHidden()
+  await page.getByRole('button', { name: 'Map', exact: true }).click()
+  await expect(map).toBeVisible()
+  await expect(page.locator('.leaflet-marker-icon').first()).toBeVisible()
+  await page.getByRole('button', { name: 'Close map' }).click()
+  await expect(map).toBeHidden()
+})
+
 test('a search with no matches shows the empty state', async ({ page }) => {
   await page.goto('/search?category=warehouse&city=Dubai&capMin=1400')
   await expect(page.getByText('No data found for your search.')).toBeVisible()

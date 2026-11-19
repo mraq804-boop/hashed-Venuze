@@ -69,8 +69,9 @@ UI states covered: skeleton loaders (cards, profile, bookings), button spinners,
 |---|---|---|
 | Search, filters, sort, category, mode, open venue (`?venue=`), dashboard tab | **URL** | Shareable links, back/forward work, and no state to sync. |
 | Auth session (`token`, `email`), saved venue IDs | **Zustand + localStorage** | Must survive reloads, and is read synchronously by many components. |
-| Server/mock data and mutations | **TanStack Query** | Caching, loading and error states, retries, optimistic updates. |
-| Ephemeral UI (drawer open, mobile map open, form drafts) | **Component state** | Local and short-lived. |
+| Shared UI state: filters drawer and full-screen mobile map (`src/features/ui/store.ts`) | **Zustand (in memory)** | Any component can open or close them without prop drilling; opening one closes the other, and both reset when leaving the search page. |
+| Server/mock data and mutations | **TanStack Query** | Caching, loading and error states, retries, optimistic updates, invalidation after mutations. |
+| Purely local UI (dropdown open, password visibility, form drafts) | **Component state** | Owned by a single component and short-lived. |
 
 ## Auth flow and security trade-off
 

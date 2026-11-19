@@ -11,6 +11,7 @@ import { VenueCardSkeleton } from '@/components/venue/VenueCardSkeleton'
 import { useQuickView } from '@/features/quickview/useQuickView'
 import { countActiveFilters, DEFAULT_SEARCH_STATE } from '@/features/search/params'
 import { useSearchState } from '@/features/search/useSearchState'
+import { useUiStore } from '@/features/ui/store'
 import { useVenues } from '@/features/venues/hooks'
 import { CATEGORIES, SORT_OPTIONS } from '@/features/venues/taxonomy'
 import type { SortKey, VenueFilters } from '@/features/venues/types'
@@ -36,8 +37,12 @@ function useDebounced<T>(value: T, ms: number): T {
 export function SearchView() {
   const { state, update } = useSearchState()
   const { open } = useQuickView()
-  const [filtersOpen, setFiltersOpen] = useState(false)
-  const [mapOpen, setMapOpen] = useState(false)
+  const filtersOpen = useUiStore((s) => s.filtersOpen)
+  const mapOpen = useUiStore((s) => s.mapOpen)
+  const setFiltersOpen = useUiStore((s) => s.setFiltersOpen)
+  const setMapOpen = useUiStore((s) => s.setMapOpen)
+
+  useEffect(() => () => useUiStore.getState().reset(), [])
   const [keyword, setKeyword] = useState(state.q ?? '')
   const debounced = useDebounced(keyword, 400)
   const isVendor = state.mode === 'vendor'
