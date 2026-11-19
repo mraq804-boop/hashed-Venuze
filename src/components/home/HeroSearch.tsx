@@ -8,6 +8,7 @@ import { GUEST_OPTIONS, dateLabel } from '@/features/search/options'
 import { toQueryString, type SearchMode } from '@/features/search/params'
 import { CITIES } from '@/features/venues/taxonomy'
 import type { City } from '@/features/venues/types'
+import { useHydrated } from '@/hooks/useHydrated'
 import { cn } from '@/lib/cn'
 import { todayISO } from '@/lib/format'
 
@@ -32,6 +33,7 @@ export function HeroSearch() {
   const [date, setDate] = useState('')
   const [guests, setGuests] = useState<number | ''>(10)
   const dateRef = useRef<HTMLInputElement>(null)
+  const hydrated = useHydrated()
 
   function submit(e: FormEvent) {
     e.preventDefault()
@@ -79,9 +81,9 @@ export function HeroSearch() {
               ref={dateRef}
               id="hero-when"
               type="date"
-              min={todayISO()}
+              min={hydrated ? todayISO() : undefined}
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => setDate(e.target.value && e.target.value < todayISO() ? '' : e.target.value)}
               onClick={() => dateRef.current?.showPicker?.()}
               className="absolute inset-0 cursor-pointer opacity-0"
             />

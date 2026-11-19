@@ -29,6 +29,19 @@ test('mobile map opens full screen and closes', async ({ page }) => {
   await expect(map).toBeHidden()
 })
 
+test('closing the quick view leaves no extra history step', async ({ page }) => {
+  await page.goto('/')
+  await page.goto('/search?city=London')
+  await page.getByRole('button', { name: 'View details' }).first().click()
+  await expect(page).toHaveURL(/venue=v\d+/)
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog')).toBeHidden()
+  await expect(page).toHaveURL(/\/search\?city=London$/)
+  await page.goBack()
+  await expect(page).toHaveURL(/\/$/)
+})
+
 test('a search with no matches shows the empty state', async ({ page }) => {
   await page.goto('/search?category=warehouse&city=Dubai&capMin=1400')
   await expect(page.getByText('No data found for your search.')).toBeVisible()

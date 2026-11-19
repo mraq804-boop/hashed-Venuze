@@ -1,13 +1,19 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
+
+let openedInApp = false
 
 export function useQuickView() {
   const router = useRouter()
   const pathname = usePathname()
   const sp = useSearchParams()
   const venueId = sp.get('venue')
+
+  useEffect(() => {
+    if (!venueId) openedInApp = false
+  }, [venueId])
 
   const withVenue = useCallback(
     (id: string | null) => {
@@ -20,8 +26,22 @@ export function useQuickView() {
     [pathname, sp],
   )
 
-  const open = useCallback((id: string) => router.push(withVenue(id), { scroll: false }), [router, withVenue])
-  const close = useCallback(() => router.replace(withVenue(null), { scroll: false }), [router, withVenue])
+  const open = useCallback(
+    (id: string) => {
+      openedInApp = true
+      router.push(withVenue(id), { scroll: false })
+    },
+    [router, withVenue],
+  )
+
+  const close = useCallback(() => {
+    if (openedInApp) {
+      openedInApp = false
+      router.back()
+    } else {
+      router.replace(withVenue(null), { scroll: false })
+    }
+  }, [router, withVenue])
 
   return { venueId, open, close }
 }

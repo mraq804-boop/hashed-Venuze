@@ -2,17 +2,31 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff, Info } from 'lucide-react'
-import { useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { loginErrorMessage } from '@/features/auth/errors'
 import { useLogin } from '@/features/auth/hooks'
+import { safeFrom } from '@/features/auth/redirect'
 import { loginSchema, type LoginValues } from '@/features/auth/schema'
+import { useAuthStore } from '@/features/auth/store'
+import { useHydrated } from '@/hooks/useHydrated'
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const login = useLogin()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const hydrated = useHydrated()
+  const token = useAuthStore((s) => s.token)
+  const alreadySignedIn = hydrated && Boolean(token) && !login.isSuccess
+
+  useEffect(() => {
+    if (alreadySignedIn) router.replace(safeFrom(searchParams.get('from')))
+  }, [alreadySignedIn, router, searchParams])
+
   const {
     register,
     handleSubmit,

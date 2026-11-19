@@ -1,5 +1,9 @@
 import { isAxiosError } from 'axios'
 
+export function isServiceFailure(err: unknown): boolean {
+  return isAxiosError(err) && (!err.response || err.response.status >= 500)
+}
+
 export function loginErrorMessage(err: unknown): string {
   if (isAxiosError(err)) {
     if (!err.response) return 'Network error. Check your connection and try again.'

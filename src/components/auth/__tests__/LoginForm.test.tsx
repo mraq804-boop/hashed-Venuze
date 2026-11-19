@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { AxiosError, AxiosHeaders } from 'axios'
+import { toast } from 'sonner'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useAuthStore } from '@/features/auth/store'
 import { reqres } from '@/lib/axios'
@@ -14,6 +15,7 @@ vi.mock('next/navigation', () => ({
   useSearchParams: () => params,
 }))
 vi.mock('@/lib/axios', () => ({ reqres: { post: vi.fn(), get: vi.fn() } }))
+vi.mock('sonner', () => ({ toast: Object.assign(vi.fn(), { success: vi.fn(), error: vi.fn() }) }))
 
 function renderForm() {
   return render(
@@ -35,6 +37,36 @@ describe('LoginForm', () => {
     vi.mocked(reqres.post).mockReset()
     params = new URLSearchParams()
     useAuthStore.setState({ token: null, email: null })
+  })
+
+  it('sends an already signed-in visitor on to the dashboard', async () => {
+    useAuthStore.setState({ token: 't', email: 'eve.holt@reqres.in' })
+    renderForm()
+    await vi.waitFor(() => expect(replace).toHaveBeenCalledWith('/dashboard'))
+  })
+
+  it('also toasts network failures', async () => {
+    vi.mocked(reqres.post).mockRejectedValue(new AxiosError('Network Error', 'ERR_NETWORK'))
+    renderForm()
+    await fillAndSubmit('eve.holt@reqres.in', 'cityslicka')
+    await vi.waitFor(() => expect(toast.error).toHaveBeenCalledWith('Network error. Check your connection and try again.'))
+  })
+
+  it('does not toast a wrong-email error, which is shown inline', async () => {
+    vi.mocked(toast.error).mockClear()
+    vi.mocked(reqres.post).mockRejectedValue(
+      new AxiosError('Bad Request', 'ERR_BAD_REQUEST', undefined, undefined, {
+        status: 400,
+        statusText: 'Bad Request',
+        data: { error: 'user not found' },
+        headers: {},
+        config: { headers: new AxiosHeaders() },
+      }),
+    )
+    renderForm()
+    await fillAndSubmit('nobody@x.com', 'secret12')
+    await screen.findByRole('alert')
+    expect(toast.error).not.toHaveBeenCalled()
   })
 
   it('shows field errors and sends nothing on an empty submit', async () => {

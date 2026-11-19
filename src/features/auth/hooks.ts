@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 import { toast } from 'sonner'
 import { getUserByEmail, login } from './api'
+import { isServiceFailure, loginErrorMessage } from './errors'
 import { safeFrom } from './redirect'
 import type { LoginValues } from './schema'
 import { useAuthStore } from './store'
@@ -20,6 +21,9 @@ export function useLogin() {
       setSession(token, values.email.trim().toLowerCase())
       toast.success('Welcome back!')
       router.replace(safeFrom(searchParams.get('from')))
+    },
+    onError: (err) => {
+      if (isServiceFailure(err)) toast.error(loginErrorMessage(err))
     },
   })
 }

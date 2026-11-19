@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { HeroSearch } from '../HeroSearch'
@@ -31,6 +31,14 @@ describe('HeroSearch', () => {
     await userEvent.keyboard('{Enter}')
     await userEvent.keyboard('{Escape}')
     expect(screen.queryByRole('listbox')).toBeNull()
+  })
+
+  it('ignores a date in the past', () => {
+    render(<HeroSearch />)
+    const when = screen.getByLabelText('When')
+    fireEvent.change(when, { target: { value: '2000-01-01' } })
+    expect(when).toHaveValue('')
+    expect(screen.getByText('Anytime')).toBeInTheDocument()
   })
 
   it('adds mode=vendor when Vendors is selected', async () => {
