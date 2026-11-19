@@ -9,12 +9,12 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { VenueCard } from '@/components/venue/VenueCard'
 import { VenueCardSkeleton } from '@/components/venue/VenueCardSkeleton'
 import { useQuickView } from '@/features/quickview/useQuickView'
-import { countActiveFilters, DEFAULT_SEARCH_STATE } from '@/features/search/params'
+import { countActiveFilters, DEFAULT_SEARCH_STATE, toVenueFilters } from '@/features/search/params'
 import { useSearchState } from '@/features/search/useSearchState'
 import { useUiStore } from '@/features/ui/store'
 import { useVenues } from '@/features/venues/hooks'
 import { CATEGORIES, SORT_OPTIONS } from '@/features/venues/taxonomy'
-import type { SortKey, VenueFilters } from '@/features/venues/types'
+import type { SortKey } from '@/features/venues/types'
 import { cn } from '@/lib/cn'
 import { CategoryStrip } from './CategoryStrip'
 import { FilterChips } from './FilterChips'
@@ -55,21 +55,7 @@ export function SearchView() {
     if ((debounced.trim() || undefined) !== state.q) setKeyword(state.q ?? '')
   }, [state.q]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const filters: VenueFilters = {
-    city: state.city,
-    guests: state.guests,
-    category: state.category,
-    q: state.q,
-    types: state.types,
-    capMin: state.capMin,
-    capMax: state.capMax,
-    priceMin: state.priceMin,
-    priceMax: state.priceMax,
-    occasions: state.occasions,
-    verified: state.verified,
-    sort: state.sort,
-  }
-  const { data, isPending, isError, isFetching, refetch } = useVenues(filters, {
+  const { data, isPending, isError, isFetching, refetch } = useVenues(toVenueFilters(state), {
     simulateError: state.simulateError,
     enabled: !isVendor,
   })

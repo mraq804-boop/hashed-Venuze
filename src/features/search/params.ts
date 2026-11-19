@@ -94,6 +94,23 @@ export function toQueryString(s: Partial<SearchState>): string {
   return sp.toString()
 }
 
+export function toVenueFilters(s: SearchState): VenueFilters {
+  return {
+    city: s.city,
+    guests: s.guests,
+    category: s.category,
+    q: s.q,
+    types: s.types,
+    capMin: s.capMin,
+    capMax: s.capMax,
+    priceMin: s.priceMin,
+    priceMax: s.priceMax,
+    occasions: s.occasions,
+    verified: s.verified,
+    sort: s.sort,
+  }
+}
+
 export function countActiveFilters(s: SearchState): number {
   const d = DEFAULT_SEARCH_STATE
   let n = 0

@@ -1,12 +1,11 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useCallback, useMemo } from 'react'
 import { DEFAULT_SEARCH_STATE, parseSearchState, toQueryString, type SearchState } from './params'
 
 export function useSearchState() {
   const sp = useSearchParams()
-  const router = useRouter()
   const pathname = usePathname()
   const state = useMemo(() => parseSearchState(new URLSearchParams(sp.toString())), [sp])
 
@@ -15,9 +14,9 @@ export function useSearchState() {
       const qs = toQueryString(next)
       const venue = sp.get('venue')
       const extra = venue ? `${qs ? '&' : ''}venue=${encodeURIComponent(venue)}` : ''
-      router.replace(`${pathname}${qs || extra ? `?${qs}${extra}` : ''}`, { scroll: false })
+      window.history.replaceState(null, '', `${pathname}${qs || extra ? `?${qs}${extra}` : ''}`)
     },
-    [pathname, router, sp],
+    [pathname, sp],
   )
 
   const update = useCallback((patch: Partial<SearchState>) => write({ ...state, ...patch }), [state, write])

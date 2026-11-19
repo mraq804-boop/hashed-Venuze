@@ -29,9 +29,9 @@ export function useQuickView() {
   const open = useCallback(
     (id: string) => {
       openedInApp = true
-      router.push(withVenue(id), { scroll: false })
+      window.history.pushState(null, '', withVenue(id))
     },
-    [router, withVenue],
+    [withVenue],
   )
 
   const close = useCallback(() => {
@@ -39,7 +39,7 @@ export function useQuickView() {
       openedInApp = false
       router.back()
     } else {
-      router.replace(withVenue(null), { scroll: false })
+      window.history.replaceState(null, '', withVenue(null))
     }
   }, [router, withVenue])
 
