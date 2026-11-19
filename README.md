@@ -35,7 +35,9 @@ First E2E run: `npx playwright install chromium`.
 |---|---|
 | `eve.holt@reqres.in` | `cityslicka` |
 
-These are the credentials from the brief. Any other email returns reqres' `400 user not found`, which the form shows as "No account found with this email." reqres.in is a mock API and does not verify passwords, so it returns a token for a known email regardless of the password; the app only enforces the client-side rules (required, at least 6 characters). Checking the password in the browser would mean shipping it in the bundle, so that is deliberately left to the API.
+These are the credentials from the brief. Any other email returns reqres' `400 user not found`, which the form shows as "No account found with this email." Any password other than `cityslicka` shows "Incorrect password." and does not sign you in.
+
+**Demo-only password check:** reqres.in is a mock API and does not verify passwords; it returns a token for a known email whatever the password is. So that the demo behaves like a real login, `login()` in `src/features/auth/api.ts` compares the password with `DEMO_PASSWORD` after reqres accepts the email. This check runs in the browser and the password ships in the bundle, so it is not security. With a real backend this line would be deleted and the server would verify the password.
 
 ## What's in the app
 

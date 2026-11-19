@@ -1,10 +1,18 @@
 import { isAxiosError } from 'axios'
 
+export class IncorrectPasswordError extends Error {
+  constructor() {
+    super('Incorrect password')
+    this.name = 'IncorrectPasswordError'
+  }
+}
+
 export function isServiceFailure(err: unknown): boolean {
   return isAxiosError(err) && (!err.response || err.response.status >= 500)
 }
 
 export function loginErrorMessage(err: unknown): string {
+  if (err instanceof IncorrectPasswordError) return 'Incorrect password.'
   if (isAxiosError(err)) {
     if (!err.response) return 'Network error. Check your connection and try again.'
     const { status, data } = err.response

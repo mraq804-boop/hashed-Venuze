@@ -1,5 +1,8 @@
 import { reqres } from '@/lib/axios'
+import { IncorrectPasswordError } from './errors'
 import type { LoginValues } from './schema'
+
+export const DEMO_PASSWORD = 'cityslicka'
 
 export interface ReqresUser {
   id: number
@@ -11,6 +14,7 @@ export interface ReqresUser {
 
 export async function login(values: LoginValues): Promise<string> {
   const { data } = await reqres.post<{ token: string }>('/login', values)
+  if (values.password !== DEMO_PASSWORD) throw new IncorrectPasswordError()
   return data.token
 }
 

@@ -100,6 +100,17 @@ describe('LoginForm', () => {
     expect(useAuthStore.getState().token).toBe('QpwL5tke4Pnpja7X4')
   })
 
+  it('refuses a wrong password for the demo account and stays signed out', async () => {
+    vi.mocked(toast.error).mockClear()
+    vi.mocked(reqres.post).mockResolvedValue({ data: { token: 'QpwL5tke4Pnpja7X4' } })
+    renderForm()
+    await fillAndSubmit('eve.holt@reqres.in', 'wrongpw')
+    expect(await screen.findByRole('alert')).toHaveTextContent('Incorrect password.')
+    expect(useAuthStore.getState().token).toBeNull()
+    expect(replace).not.toHaveBeenCalled()
+    expect(toast.error).not.toHaveBeenCalled()
+  })
+
   it('returns to the from path after login', async () => {
     params = new URLSearchParams('from=/dashboard?tab=bookings')
     vi.mocked(reqres.post).mockResolvedValue({ data: { token: 't' } })
